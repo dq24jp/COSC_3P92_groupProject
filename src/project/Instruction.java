@@ -25,6 +25,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
             }),
             new Instruction(0x02, cpu->{
                 cpu.R_X = cpu.fetchNext();
+                cpu.update_ZS_flags_from_output(cpu.R_X);
                 return null;
             }),
             new Instruction(0x03, cpu->{
