@@ -28,4 +28,11 @@ public class RAM implements MemorySet{
         if(!isMe(address)) return null;
         return this.mem[address-this.baseAddress];
     }
+
+    @Override 
+    public boolean load(int address, byte data) {
+        if(!isMe(address)) return false;
+        this.mem[address-this.baseAddress]=data;
+        return true;
+    }
 }

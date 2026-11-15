@@ -7,4 +7,6 @@ public interface MemorySet {
     public boolean write(int address, byte data);
     /// tries to read from (address). Returns value if successful, or null if cannot.
     public Byte read(int address);
+
+    public boolean load(int address, byte data);
 }
