@@ -11,6 +11,11 @@ public class RAM implements MemorySet{
         this.mem = new byte[size];
     }
 
+    public RAM(int baseAddress, byte[] data){
+        this.baseAddress = baseAddress;
+        this.mem = data;
+    }
+
     @Override
     public boolean isMe(int address) {
             return address>=this.baseAddress && address<this.baseAddress+this.mem.length;
@@ -27,12 +32,5 @@ public class RAM implements MemorySet{
     public Byte read(int address) {
         if(!isMe(address)) return null;
         return this.mem[address-this.baseAddress];
-    }
-
-    @Override 
-    public boolean load(int address, byte data) {
-        if(!isMe(address)) return false;
-        this.mem[address-this.baseAddress]=data;
-        return true;
     }
 }

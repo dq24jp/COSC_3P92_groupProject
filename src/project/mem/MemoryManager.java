@@ -44,14 +44,4 @@ public class MemoryManager implements MemorySet{
         }
         return null;
     }
-
-    @Override 
-    public boolean load(int address, byte data) {
-    for (MemorySet set : sets){
-        if (set.isMe(address)){
-            return set.load(address, data);
-        }
-    }
-    return false;
-}
 }
