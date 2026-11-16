@@ -80,14 +80,14 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
 
             new Instruction(0x44, cpu->{ // LSR A
                 cpu.set_flag(CPU.F_C, ((cpu.R_A&1)!=0));
-                cpu.R_A = (byte)(cpu.R_A>>>1);
+                cpu.R_A = (byte)(Util.b2iu(cpu.R_A)>>>1);
                 cpu.update_ZS_flags_from_output(cpu.R_A);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
                 return null;
             }),
             new Instruction(0x54, cpu->{ // LSR B
                 cpu.set_flag(CPU.F_C, ((cpu.R_B&1)!=0));
-                cpu.R_B = (byte)(cpu.R_B>>>1);
+                cpu.R_B = (byte)(Util.b2iu(cpu.R_B)>>>1);
                 cpu.update_ZS_flags_from_output(cpu.R_B);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
                 return null;
@@ -95,7 +95,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
             new Instruction(0x64, cpu->{ // LSR IDX
                 short addr = (short)(cpu.R_IDX + cpu.fetchNext());
                 byte val = cpu.fetch(addr);
-                cpu.set_flag(CPU.F_C, ((val&1)!=0));
+                cpu.set_flag(CPU.F_C, ((Util.b2iu(val)&1)!=0));
                 cpu.writeMem(addr, (byte)(val>>>1));
                 cpu.update_ZS_flags_from_output(val);
                 cpu.set_flag(CPU.F_C, true);
@@ -106,7 +106,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
                 short addr = Util.b2s(cpu.fetchNext(), cpu.fetchNext());
                 byte val = cpu.fetch(addr);
                 cpu.set_flag(CPU.F_C, ((val&1)!=0));
-                cpu.writeMem(addr, (byte)(val>>>1));
+                cpu.writeMem(addr, (byte)(Util.b2iu(val)>>>1));
                 cpu.update_ZS_flags_from_output(val);
                 cpu.set_flag(CPU.F_C, true);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
@@ -119,7 +119,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
             new Instruction(0x46, cpu->{ // ROR A
                 int f = cpu.get_flag(CPU.F_C)?0x80:0;
                 cpu.set_flag(CPU.F_C, ((cpu.R_A&0x80)!=0));
-                cpu.R_A = (byte)((cpu.R_A>>>1) | f);
+                cpu.R_A = (byte)((Util.b2iu(cpu.R_A)>>>1) | f);
                 cpu.update_ZS_flags_from_output(cpu.R_A);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
                 return null;
@@ -127,7 +127,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
             new Instruction(0x56, cpu->{ // ROR B
                 int f = cpu.get_flag(CPU.F_C)?0x80:0;
                 cpu.set_flag(CPU.F_C, ((cpu.R_B&0x80)!=0));
-                cpu.R_B = (byte)((cpu.R_B>>>1) | f);
+                cpu.R_B = (byte)((Util.b2iu(cpu.R_B)>>>1) | f);
                 cpu.update_ZS_flags_from_output(cpu.R_B);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
                 return null;
@@ -137,7 +137,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
                 byte val = cpu.fetch(addr);
                 int f = cpu.get_flag(CPU.F_C)?0x80:0;
                 cpu.set_flag(CPU.F_C, ((val&0x80)!=0));
-                cpu.writeMem(addr, (byte)((val>>>1) | f));
+                cpu.writeMem(addr, (byte)((Util.b2iu(val)>>>1) | f));
                 cpu.update_ZS_flags_from_output(val);
                 cpu.set_flag(CPU.F_C, true);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
@@ -148,7 +148,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
                 short addr = Util.b2s(cpu.fetchNext(), cpu.fetchNext());
                 byte val = cpu.fetch(addr);
                 cpu.set_flag(CPU.F_C, ((val&0x80)!=0));
-                cpu.writeMem(addr, (byte)((val>>>1) | f));
+                cpu.writeMem(addr, (byte)((Util.b2iu(val)>>>1) | f));
                 cpu.update_ZS_flags_from_output(val);
                 cpu.set_flag(CPU.F_C, true);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
@@ -159,14 +159,14 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
 
             new Instruction(0x47, cpu->{ // ASR A
                 cpu.set_flag(CPU.F_C, ((cpu.R_A&1)!=0));
-                cpu.R_A = (byte)(cpu.R_A>>1);
+                cpu.R_A = (byte)(Util.b2iu(cpu.R_A)>>1);
                 cpu.update_ZS_flags_from_output(cpu.R_A);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
                 return null;
             }),
             new Instruction(0x57, cpu->{ // ASR B
                 cpu.set_flag(CPU.F_C, ((cpu.R_B&1)!=0));
-                cpu.R_B = (byte)(cpu.R_B>>1);
+                cpu.R_B = (byte)(Util.b2iu(cpu.R_B)>>1);
                 cpu.update_ZS_flags_from_output(cpu.R_B);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
                 return null;
@@ -175,7 +175,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
                 short addr = (short)(cpu.R_IDX + cpu.fetchNext());
                 byte val = cpu.fetch(addr);
                 cpu.set_flag(CPU.F_C, ((val&1)!=0));
-                cpu.writeMem(addr, (byte)(val>>1));
+                cpu.writeMem(addr, (byte)(Util.b2iu(val)>>1));
                 cpu.update_ZS_flags_from_output(val);
                 cpu.set_flag(CPU.F_C, true);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));
@@ -185,7 +185,7 @@ public record Instruction(byte opcode, Function<CPU, InstructionReturn> execfunc
                 short addr = Util.b2s(cpu.fetchNext(), cpu.fetchNext());
                 byte val = cpu.fetch(addr);
                 cpu.set_flag(CPU.F_C, ((val&1)!=0));
-                cpu.writeMem(addr, (byte)(val>>1));
+                cpu.writeMem(addr, (byte)(Util.b2iu(val)>>1));
                 cpu.update_ZS_flags_from_output(val);
                 cpu.set_flag(CPU.F_C, true);
                 cpu.set_flag(CPU.F_O, cpu.get_flag(CPU.F_C)^cpu.get_flag(CPU.F_S));

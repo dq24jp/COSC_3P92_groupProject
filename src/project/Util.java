@@ -28,4 +28,14 @@ public class Util {
     public static short b2s(byte hi, byte lo){
         return bytes_as_short(hi, lo);
     }
+
+    /// converts a byte to an int, without sign extension
+    /// because default java casting uses sign extension
+    public static int byte_to_int_unsigned(byte value){
+        return value&0xFF;
+    }
+    /// byte to int unsigned
+    public static int b2iu(byte value){
+        return byte_to_int_unsigned(value);
+    }
 }
