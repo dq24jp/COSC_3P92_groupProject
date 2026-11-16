@@ -10,10 +10,10 @@ public class CPU extends Hookable<String, CPU>{
     // ///////// //
     // REGISTERS //
     // ///////// //
-    /// accumulator X register
-    byte R_X;
-    /// accumulator Y register
-    byte R_Y;
+    /// accumulator A register
+    byte R_A;
+    /// accumulator B register
+    byte R_B;
     /// index register
     short R_IDX;
     /// stack pointer register
@@ -107,6 +107,10 @@ public class CPU extends Hookable<String, CPU>{
         return b;
     }
 
+    void writeMem(short address, byte data){
+        mem.write(address, data);
+    }
+
     /// fetch next byte and increment program counter
     byte fetchNext(){
         return this.fetch(R_PC++);
@@ -118,6 +122,12 @@ public class CPU extends Hookable<String, CPU>{
     byte pop_from_stack(){
         return this.mem.read(--this.R_SP);
     }
+
+    /// gets the flag from status register
+    boolean get_flag(byte flag){
+        return (this.R_S & flag)!=0;
+    }
+
 
     /// sets the relevant flag bit to value
     void set_flag(byte flag, boolean value){

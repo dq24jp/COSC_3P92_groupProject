@@ -21,4 +21,11 @@ public class Util {
         if(i<0) i+=0x10000;
         return Integer.toString(i, 16).toUpperCase();
     }
+
+    public static short bytes_as_short(byte hi, byte lo){
+        return (short)((hi<<8) | lo);
+    }
+    public static short b2s(byte hi, byte lo){
+        return bytes_as_short(hi, lo);
+    }
 }
