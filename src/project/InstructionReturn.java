@@ -3,7 +3,7 @@ package project;
 /// object to contain data about an instruction's execution.
 public class InstructionReturn {
     /// whether the instruction stops the cpu
-    public boolean isStopped;
+    public boolean shouldStop;
 
     /// creates with default properties
     public InstructionReturn(){
@@ -11,7 +11,7 @@ public class InstructionReturn {
     }
 
     /// creates with given properties
-    public InstructionReturn(boolean isStopped){
-        this.isStopped=isStopped;
+    public InstructionReturn(boolean shouldStop){
+        this.shouldStop =shouldStop;
     }
 }

@@ -70,13 +70,14 @@ public class CPU extends Hookable<String, CPU>{
             System.out.println("AAAHHH error in instruction!!!! "+opcode);
             throw new RuntimeException(e);
         }
-        throw new RuntimeException("AAAHHH unknown instruction: "+opcode);
+        System.out.println("AAAHHH unknown instruction: "+opcode+" at memory address 0x"+Integer.toString(R_PC-1, 16));
+        return new InstructionReturn(true);
     }
 
     /// executes instructions until one stops the cpu
     public void stepUntilStop(){
         while(true){
-            if(step().isStopped){ // stop if stopped
+            if(step().shouldStop){ // stop if should stop
                 return;
             }
         }
