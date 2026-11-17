@@ -111,6 +111,40 @@ public class UI {
 
                 }
                 break;
+            case "REG":
+                Short s = null;
+                Byte v = null;
+                switch(afterFirstWord.toUpperCase().trim()){
+                    case "A":
+                        v = this.cpu.R_A;
+                        break;
+                    case "B":
+                        v = this.cpu.R_B;
+                        break;
+                    case "S":
+                        v = this.cpu.R_S;
+                        break;
+                    case "SP":
+                        s = this.cpu.R_SP;
+                        break;
+                    case "PC":
+                        s = this.cpu.R_PC;
+                        break;
+                    case "IDX":
+                        s = this.cpu.R_IDX;
+                        break;
+
+                }
+                if(v!=null){
+                    System.out.println("Contents of specified register: "+v+" (0x"+Util.byte_as_hex(v)+")");
+                    break;
+                }
+                if(s!=null){
+                    System.out.println("Contents of specified register: "+s+" ("+Util.short_as_hex(s)+")");
+                    break;
+                }
+                System.out.println("Unknown register: "+afterFirstWord);
+                break;
             case "RESET":
                 this.reset();
                 System.out.println("System reset.");

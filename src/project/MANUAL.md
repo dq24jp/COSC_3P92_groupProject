@@ -15,5 +15,12 @@
     - O: Overflow flag
     - I: Interrupt flag
     - A: Auxiliary carry flag
+- REG [R]: returns the contents of register [R]:
+  - A: Accumulator A (8 bit)
+  - B: Accumulator B (8 bit)
+  - S: Status register (8 bit)
+  - PC: Program counter (16 bit)
+  - SP: Stack pointer (16 bit)
+  - IDX: Index register (16 bit)
 - RESET: resets the emulator
 - 
