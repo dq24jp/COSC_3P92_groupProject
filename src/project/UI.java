@@ -87,7 +87,7 @@ public class UI {
             case "FLAG":
                 switch(afterFirstWord){
                     case "A":
-                        System.out.println("Flag A: "+(cpu.R_S&CPU.F_A));
+                        System.out.println("Auxiliary carry flag: "+(cpu.R_S&CPU.F_A));
                         break;
                     case "C":
                         System.out.println("Carry flag: "+(cpu.R_S&CPU.F_C));
@@ -96,10 +96,10 @@ public class UI {
                         System.out.println("Interrupt flag: "+(cpu.R_S&CPU.F_I));
                         break;
                     case "O":
-                        System.out.println("Flag O: "+(cpu.R_S&CPU.F_O));
+                        System.out.println("Overflow flag: "+(cpu.R_S&CPU.F_O));
                         break;
                     case "S":
-                        System.out.println("Flag S: "+(cpu.R_S&CPU.F_S));
+                        System.out.println("Sign flag: "+(cpu.R_S&CPU.F_S));
                         break;
                     case "Z":
                         System.out.println("Zero flag: "+(cpu.R_S&CPU.F_Z));
