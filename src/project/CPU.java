@@ -67,10 +67,10 @@ public class CPU extends Hookable<String, CPU>{
                 }
             }
         } catch (Exception e) {
-            System.out.println("AAAHHH error in instruction!!!! "+opcode);
+            System.out.println("AAAHHH error in instruction!!!! 0x"+Util.byte_as_hex(opcode));
             throw new RuntimeException(e);
         }
-        System.out.println("AAAHHH unknown instruction: "+opcode+" at memory address 0x"+Integer.toString(R_PC-1, 16));
+        System.out.println("AAAHHH unknown instruction: 0x"+Util.byte_as_hex(opcode)+" at memory address 0x"+Integer.toString(R_PC-1, 16));
         return new InstructionReturn(true);
     }
 

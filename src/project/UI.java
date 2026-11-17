@@ -11,20 +11,23 @@ public class UI {
     CPU cpu;
 
     public UI(){
-        this(new CPU());
+        this.reset();
     }
-    public UI(CPU cpu){
-        this.cpu = cpu;
+
+    void reset(){
+        this.cpu = new CPU();
+
+        cpu.addISA(Instruction.M6800_ISA);
     }
 
     public void parseCommand(String command){
-        command = command.toUpperCase().trim();
+        command = command.trim();
 
         String[] words = command.split(" ");
-        String firstWord = words[0];
+        String firstWord = words[0].toUpperCase();
         String afterFirstWord = command.substring(command.indexOf(" ")+1).trim();
 
-        switch(words[0]){
+        switch(firstWord){
             case "STOP":
             case "EXIT":
                 this.running = false;
@@ -42,6 +45,7 @@ public class UI {
                     for(MemorySet mem: s19loader.memories){
                         cpu.mem.attach(mem);
                     }
+                    System.out.println(afterFirstWord+" loaded as ROM.");
                     cpu.R_PC = (short) s19loader.startAddress;
                 } catch (IOException e) {
                     System.out.println("An error occured loading the file:");
@@ -54,6 +58,7 @@ public class UI {
                     for(MemorySet mem: s19loader.memories){
                         cpu.mem.attach(mem);
                     }
+                    System.out.println(afterFirstWord+" loaded as RAM.");
                     cpu.R_PC = (short) s19loader.startAddress;
                 } catch (IOException e) {
                     System.out.println("An error occured loading the file:");
@@ -63,8 +68,11 @@ public class UI {
             case "INSPECT": // inspect memory location
                 int addr;
                 try {
-                    if(afterFirstWord.charAt(0)=='x'){ // x is hex
+                    if(afterFirstWord.length()>0 && afterFirstWord.charAt(0)=='x'){ // x is hex
                         addr = Integer.parseInt(afterFirstWord.substring(1), 16);
+                    }
+                    else if(afterFirstWord.length()>1 && afterFirstWord.charAt(1)=='x'){ // 0x is hex
+                        addr = Integer.parseInt(afterFirstWord.substring(2), 16);
                     }
                     else {
                         addr = Integer.parseInt(afterFirstWord, 10);
@@ -73,7 +81,8 @@ public class UI {
                     System.out.println("Address not recognized: "+afterFirstWord);
                     break;
                 }
-                System.out.println("value at specified address: "+cpu.fetch((short)addr));
+                byte val = cpu.fetch((short)addr);
+                System.out.println("value at specified address: "+val+" (0x"+Util.byte_as_hex(val)+")");
                 break;
             case "FLAG":
                 switch(afterFirstWord){
@@ -101,7 +110,7 @@ public class UI {
                 }
                 break;
             case "RESET":
-                this.cpu = new CPU();
+                this.reset();
                 System.out.println("System reset.");
                 break;
 

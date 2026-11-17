@@ -8,17 +8,24 @@ public class Example {
 
         System.out.println("\n Example of how to use the CPU (using TEST_ISA)");
         CPU cpu = new CPU();
-        cpu.addISA(Instruction.TEST_ISA);
+        cpu.addISA(Instruction.M6800_ISA);
         cpu.mem.attach(
                 project.mem.ROM.from_ints(0, new int[]{
-                        0x01,
-                        0x02,
-                        0x69,
-                        0x03,
-                        0x7F
+                        0x47,
+                        0x4C,
+                        0xB7,
+                        0x00,
+                        0x80,
+                        0x48,
+                        0x3E,
+                        0X20,
+                        0XF9
                 })
         );
-        cpu.stepUntilStop();
+        for(int i=0;i<7;i++) {
+            cpu.stepUntilStop();
+            System.out.println(cpu.R_A);
+        }
 
 
 
