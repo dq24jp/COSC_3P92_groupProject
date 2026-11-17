@@ -1,6 +1,6 @@
 # how to use the UI
 
-1. run UI.main function in UI.java
+1. run UI.main() function in "project/UI.java"
 2. Enter commands (one per line):
 - EXIT: exits the UI
 - LOADRAM [path]: loads S19 file from [path] into the emulator as RAM
