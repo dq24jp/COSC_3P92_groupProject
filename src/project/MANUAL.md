@@ -23,4 +23,18 @@
   - SP: Stack pointer (16 bit)
   - IDX: Index register (16 bit)
 - RESET: resets the emulator
-- 
+
+
+
+# demo s19 files
+
+demo_ram.s19 and demo_rom.s19 together contain a program which starts at 0x0108, and adds together 0x10 and 0x15, putting the result in memory location 0x0108.
+
+Commands to test the example s19s:
+- LOADROM demo_rom.s19
+- LOADRAM demo_ram.s19
+- run
+- inspect 0x0108
+
+This outputs a result of 37 (0x25).
+
