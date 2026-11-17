@@ -19,9 +19,9 @@ public class S19loader {
     public static final int TYPE_ROM = 2;
 
     public MemorySet[] memories;
-    public int startAddress;
+    public Integer startAddress;
 
-    private S19loader(MemorySet[] memories, int startAddress){
+    private S19loader(MemorySet[] memories, Integer startAddress){
         this.memories = memories;
         this.startAddress = startAddress;
     }
@@ -76,6 +76,9 @@ public class S19loader {
                 }
 
                 else if (type.equals("S9")){
+                    if(line.substring(2, 4).equals("01")){ // only include start address if the S19 contains it
+                        return new S19loader(memories.toArray(MemorySet[]::new), null);
+                    }
                     startAddress = Integer.parseInt(line.substring(4, 8), 16);
                     return new S19loader(memories.toArray(MemorySet[]::new), startAddress);
                 }

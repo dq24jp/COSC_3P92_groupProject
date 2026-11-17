@@ -46,7 +46,8 @@ public class UI {
                         cpu.mem.attach(mem);
                     }
                     System.out.println(afterFirstWord+" loaded as ROM.");
-                    cpu.R_PC = (short) s19loader.startAddress;
+                    if(s19loader.startAddress != null)
+                        cpu.R_PC = s19loader.startAddress.shortValue();
                 } catch (IOException e) {
                     System.out.println("An error occured loading the file:");
                     System.out.println(e);
@@ -59,7 +60,8 @@ public class UI {
                         cpu.mem.attach(mem);
                     }
                     System.out.println(afterFirstWord+" loaded as RAM.");
-                    cpu.R_PC = (short) s19loader.startAddress;
+                    if(s19loader.startAddress != null)
+                        cpu.R_PC = s19loader.startAddress.shortValue();
                 } catch (IOException e) {
                     System.out.println("An error occured loading the file:");
                     System.out.println(e);
